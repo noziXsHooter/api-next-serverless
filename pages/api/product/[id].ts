@@ -1,6 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
-import { MongoClient, Db } from 'mongodb';
-/* 
+import { MongoClient, Db, ObjectId } from 'mongodb';
+ 
+
 let cachedDb: Db;
 
  async function connectToDatabase(uri: string){
@@ -20,15 +21,33 @@ let cachedDb: Db;
 
    export default async (req: VercelRequest ,res: VercelResponse) =>{
 
-    const  name  = 'req.body';
+    if(req.method === 'GET'){
 
-     const uri = 'mongodb+srv://ecommercetest:ecommercetest@ecommercetest.hlmhtv7.mongodb.net/?retryWrites=true&w=majority';
+      var { id } = req.query;
+ 
+      if(id.length === 24){
 
-    const db = await connectToDatabase(uri);
+        const uri = 'mongodb+srv://ecommercetest:ecommercetest@ecommercetest.hlmhtv7.mongodb.net/?retryWrites=true&w=majority';
+      
+        const db = await connectToDatabase(uri);
+      
+        const collection = db.collection('products');
+      
+        const product = await collection.find({"_id" : new ObjectId(`${id}`)}).toArray();
 
-    const collection = db.collection('products');
+        if(product.length != 0){
 
-    const list = await collection.find().toArray();
+          return res.status(201).json(product);
 
-    return res.status(201).json({list});
-  } */
+        }else{
+
+          return res.status(201).json( { message: 'Produto não encontrado! '});
+
+        }
+      } else {
+
+        return res.status(201).json( { message: 'O id escolhido é inválido! '});
+
+      }
+    }
+}

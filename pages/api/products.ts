@@ -18,40 +18,41 @@ let cachedDb: Db;
   return db;
   }
 
-   export default async (req: VercelRequest ,res: VercelResponse) =>{
+   export default async function handler(req: VercelRequest ,res: VercelResponse) {
 
-    const uri = 'mongodb+srv://ecommercetest:ecommercetest@ecommercetest.hlmhtv7.mongodb.net/?retryWrites=true&w=majority';
+    if (req.method === 'POST'){
 
-    const db = await connectToDatabase(uri);
-
-    const collection = db.collection('products');
-
-    const list = await collection.find().toArray();
-
-    return res.status(201).json(list);
-  }
-
-/* 
-// Require and initialize outside of your main handler
-const mysql = require('serverless-mysql')({
-    config: {
-      host     : 'projecttest.shop',
-      database : 'u322110491_lojinhatest',
-      user     : 'u322110491_lojinhatest',
-      password : 'Lojinhatest123'
-    }
-  })
-
+      const { name , image, price } = req.body
  
-   export default function (req: VercelRequest ,res: VercelResponse) {
+      const uri = 'mongodb+srv://ecommercetest:ecommercetest@ecommercetest.hlmhtv7.mongodb.net/?retryWrites=true&w=majority';
 
-    async function connectToDatabse(){
+      const db = await connectToDatabase(uri);
+  
+      const collection = db.collection('products');
+  
+      await collection.insertOne( { name: name, image: image, price: price, createdAt: new Date() } )
 
-      let results = await mysql.connect()
-    
-      res.send(results);
-      }
-     var { name } = req.body;
-    res.send({ message: `Este é o produto: ${name}`});
+      return res.status(201).json({name, image, price})
+     // return res.status(404).json({message: 'Essa rota nao aceita POST'})
     }
-  */
+
+
+    else if (req.method === 'GET'){
+      
+      const uri = 'mongodb+srv://ecommercetest:ecommercetest@ecommercetest.hlmhtv7.mongodb.net/?retryWrites=true&w=majority';
+
+      const db = await connectToDatabase(uri);
+  
+      const collection = db.collection('products');
+  
+      const list = await collection.find().toArray();
+  
+      return res.status(201).json(list);
+    }
+
+     else {
+      
+      return res.status(404).json({message: 'Método inválido!'})
+    }
+
+  }
