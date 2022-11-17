@@ -41,11 +41,11 @@ yarn add @vercel/node
 
 yarn add mongodb
 
-### Requisitions
+## Requisitions
 
 LISTING all products "GET" to https://api-next-serverless.vercel.app/api/products
 
 INSERTING "POST" to https://api-next-serverless.vercel.app/api/products
 
-SEARCH for a specific product by Id, "GET" https://api-next-serverless.vercel.app/api/product/[6372afd3aedd0c8a8876cee5] (OBS.: Params must be the ObjectId as string)
+SEARCH for a specific product by Id, "GET" https://api-next-serverless.vercel.app/api/product/6372afd3aedd0c8a8876cee5 (OBS.: Params must be the ObjectId as string)
 
