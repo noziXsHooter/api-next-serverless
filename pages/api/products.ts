@@ -20,7 +20,56 @@ let cachedDb: Db;
 
    export default async function handler(req: VercelRequest ,res: VercelResponse) {
 
-    if (req.method === 'POST'){
+          switch (req.method) {
+              case 'GET': {
+                  return listProducts(req, res);
+              }
+            
+               case 'POST': {
+                  return postProduct(req, res); 
+              }
+          }                 
+    }
+
+    async function listProducts(req: VercelRequest ,res: VercelResponse) 
+    {
+      try {
+        //connect to database
+        const uri = 'mongodb+srv://ecommercetest:ecommercetest@ecommercetest.hlmhtv7.mongodb.net/?retryWrites=true&w=majority';
+        const db = await connectToDatabase(uri);
+        const collection = db.collection('products');
+        const list = await collection.find().toArray();
+
+        return res.status(201).json(list);
+
+      } catch(e) {
+        res.status(500).json({message: e})
+      }
+    }
+
+    async function postProduct(req: VercelRequest ,res: VercelResponse) 
+    {
+      const { name , image, price } = req.body;
+
+      try {
+        //connect to database
+        const uri = 'mongodb+srv://ecommercetest:ecommercetest@ecommercetest.hlmhtv7.mongodb.net/?retryWrites=true&w=majority';
+
+        const db = await connectToDatabase(uri);
+    
+        const collection = db.collection('products');
+  
+        await collection.insertOne( { name: name, image: image, price: price, createdAt: new Date() } )
+
+        return res.status(201).json({name, image, price});
+
+      } catch (e) {
+        
+        return res.status(500).json({message: e})
+      }
+    }
+
+   /*  if (req.method === 'POST'){
 
       const { name , image, price } = req.body
  
@@ -53,6 +102,4 @@ let cachedDb: Db;
      else {
       
       return res.status(404).json({message: 'Método inválido!'})
-    }
-
-  }
+    } */
