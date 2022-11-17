@@ -41,7 +41,7 @@ yarn add @vercel/node
 
 yarn add mongodb
 
-## Requisitions
+## Queries
 
 LISTING all products "GET" to https://api-next-serverless.vercel.app/api/products
 
