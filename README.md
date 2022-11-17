@@ -32,3 +32,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+
+## Installs
+
+yarn add @vercel/node 
+
+yarn add mongodb
+
+### Requisitions
+
+LISTING all products "GET" to https://api-next-serverless.vercel.app/api/products
+
+INSERTING "POST" to https://api-next-serverless.vercel.app/api/products
+
+SEARCH for a specific product by Id, "GET" https://api-next-serverless.vercel.app/api/product/[6372afd3aedd0c8a8876cee5] (OBS.: Params must be the ObjectId as string)
+
