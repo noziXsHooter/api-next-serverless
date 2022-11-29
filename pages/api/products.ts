@@ -41,9 +41,9 @@ let cachedDb: Db;
         const list = await collection.find().toArray();
 
         return res.status(201).json(list)
-                .setHeader('Access-Control-Allow-Origin:','*')
-                .setHeader('Content-Type:','application/json')
-                .setHeader('Set-Cookie:', '<JSESSIONID>=<x6Bs790Fd4Fsdg43fdGhx>; Secure');
+     /*            .setHeader('Access-Control-Allow-Origin:','*') */;
+/*                 .setHeader('Content-Type:','application/json')
+                .setHeader('Set-Cookie:', '<JSESSIONID>=<x6Bs790Fd4Fsdg43fdGhx>; Secure'); */
 
       } catch(e) {
         res.status(500).json({message: e})
