@@ -40,7 +40,9 @@ let cachedDb: Db;
         const collection = db.collection('products');
         const list = await collection.find().toArray();
 
-        return res.status(201).json(list);
+        return res.status(201).json(list)
+                .setHeader('Access-Control-Allow-Origin:','*')
+                /* .setHeader('Content-Type:','application/json; charset=UTF-8') */;
 
       } catch(e) {
         res.status(500).json({message: e})
