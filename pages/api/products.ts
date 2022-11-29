@@ -3,6 +3,7 @@ import { MongoClient, Db } from 'mongodb';
 
 let cachedDb: Db;
 
+
  async function connectToDatabase(uri: string){
 
   if(cachedDb) {
@@ -40,8 +41,7 @@ let cachedDb: Db;
         const collection = db.collection('products');
         const list = await collection.find().toArray();
 
-        return res.status(201).json(list)
-                 .setHeader('Access-Control-Allow-Origin:','*');
+        return res.status(201).json(list)/* .setHeader('Access-Control-Allow-Origin:','*')*/; 
 /*                 .setHeader('Content-Type:','application/json')
                 .setHeader('Set-Cookie:', '<JSESSIONID>=<x6Bs790Fd4Fsdg43fdGhx>; Secure'); */
 
@@ -71,7 +71,27 @@ let cachedDb: Db;
         return res.status(500).json({message: e})
       }
     }
+/* 
+    async function deleteProduct(req: VercelRequest ,res: VercelResponse) 
+    {
+      try {
+        //connect to database
+        const uri = 'mongodb+srv://ecommercetest:ecommercetest@ecommercetest.hlmhtv7.mongodb.net/?retryWrites=true&w=majority';
+        const db = await connectToDatabase(uri);
+        const collection = db.collection('products');
+        const list = await collection.find().toArray();
 
+        return res.status(201).json(list)
+                  .setHeader('Access-Control-Allow-Origin:','*');
+                 .setHeader('Content-Type:','application/json')
+                .setHeader('Set-Cookie:', '<JSESSIONID>=<x6Bs790Fd4Fsdg43fdGhx>; Secure'); 
+
+              } catch(e) {
+                res.status(500).json({message: e})
+              }
+            }
+*/
+    
    /*  if (req.method === 'POST'){
 
       const { name , image, price } = req.body
