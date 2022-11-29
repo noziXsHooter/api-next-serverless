@@ -42,7 +42,7 @@ let cachedDb: Db;
 
         return res.status(201).json(list)
                 .setHeader('Access-Control-Allow-Origin:','*')
-                /* .setHeader('Content-Type:','application/json; charset=UTF-8') */;
+                .setHeader('Content-Type:','application/json; charset=UTF-8');
 
       } catch(e) {
         res.status(500).json({message: e})
